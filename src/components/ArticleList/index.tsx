@@ -22,8 +22,9 @@ const ArticleList = () => {
     }));
   };
 
-  const truncateContent = (content: string, expanded: boolean) => {
-    if (expanded) return content;
+  const truncateContent = (content: string, isExpanded: boolean) => {
+    if (!content) return '';
+    if (isExpanded) return content;
     return content.length > 100 ? `${content.slice(0, 100)}...` : content;
   };
 
@@ -35,6 +36,7 @@ const ArticleList = () => {
       {articles.map(article => (
         <article key={article.id} className="article-card">
           <h2 className="article-title">{article.title}</h2>
+          
           <div className="tags-container">
             {article.tags.map(tag => (
               <span key={tag} className="article-tag">
@@ -42,27 +44,30 @@ const ArticleList = () => {
               </span>
             ))}
           </div>
+          
           <p className="article-content">
             {truncateContent(article.content, expandedArticles[article.id])}
           </p>
+
           {article.content.length > 100 && (
             <button 
               className="expand-button"
               onClick={() => toggleArticle(article.id)}
             >
               {expandedArticles[article.id] ? (
-                <>
+                <span className="expand-button-content">
                   <span>Voir moins</span>
                   <ChevronUp size={20} />
-                </>
+                </span>
               ) : (
-                <>
+                <span className="expand-button-content">
                   <span>Voir plus</span>
                   <ChevronDown size={20} />
-                </>
+                </span>
               )}
             </button>
           )}
+
           <div className="article-footer">
             <time className="article-date">
               {new Date(article.createdAt).toLocaleDateString()}
@@ -81,4 +86,4 @@ const ArticleList = () => {
   );
 };
 
-export default ArticleList; 
+export default ArticleList;

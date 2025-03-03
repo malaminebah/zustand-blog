@@ -11,11 +11,18 @@ const CreateArticle = () => {
 
   const { createArticle, loading } = useArticleStore();
 
-  const handelAddTags = ()=>{
+  const handleAddTags = ()=>{
     if (selectedTagsInput.trim() && !tags.includes(selectedTagsInput.trim())) {
         setTags([...tags, selectedTagsInput.trim()]);
         setSelectedTagsInput('');
       }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddTags();
+    }
   };
 
   const handleRemoveTag = (tagToRemove: string) => {
@@ -67,14 +74,14 @@ const CreateArticle = () => {
               type="text"
               value={selectedTagsInput}
               onChange={(e) => setSelectedTagsInput(e.target.value)}
-              onKeyDown={handelAddTags}
+              onKeyDown={handleKeyDown}
               placeholder="Ajouter des tags..."
               className="tag-input"
               disabled={loading}
             />
             <button
               type="button"
-              onClick={handelAddTags}
+              onClick={handleAddTags}
               className="add-tag-button"
               disabled={!selectedTagsInput.trim() || loading}
             >

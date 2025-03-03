@@ -27,9 +27,8 @@
   font-size: 16px;
   line-height: 1.6;
   color: #e5e7eb;
-  font-weight: 500;
-  margin-bottom: 8px;
   white-space: pre-wrap;
+  margin-bottom: 16px;
 }
 
 .article-footer {
@@ -67,31 +66,6 @@
   transform: scale(0.95);
 }
 
-.expand-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: none;
-  border: none;
-  color: #3b82f6;
-  padding: 8px 16px;
-  margin: 8px 0;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.expand-button:hover {
-  background-color: rgba(59, 130, 246, 0.1);
-  transform: translateY(-1px);
-}
-
-.expand-button:active {
-  transform: translateY(0);
-}
-
 .tags-container {
   display: flex;
   flex-wrap: wrap;
@@ -112,4 +86,30 @@
 /* Variantes de couleurs pour les tags */
 .article-tag:nth-child(3n+1) { background: #3b82f6; }  /* Bleu */
 .article-tag:nth-child(3n+2) { background: #10b981; }  /* Vert */
-.article-tag:nth-child(3n+3) { background: #8b5cf6; }  /* Violet */ 
+.article-tag:nth-child(3n+3) { background: #8b5cf6; }  /* Violet */
+
+.expand-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #3b82f6;
+  padding: 8px 0;
+  margin-top: -8px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.expand-button:hover {
+  color: #60a5fa;
+}
+
+.expand-button-content {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+} 
