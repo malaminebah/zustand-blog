@@ -97,17 +97,7 @@
   color: #9ca3af;
 }
 
-/* Supprimer les styles liés aux tags */
-.tags-section,
-.tags-input-container,
-.tag-input,
-.add-tag-button,
-.tags-list,
-.tag,
-.remove-tag-button {
-  display: none;
-}
-
+/* Garder uniquement les styles positifs pour les tags */
 .tags-section {
   margin-bottom: 20px;
   width: 80%;
