@@ -68,6 +68,9 @@
 }
 
 .expand-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   background: none;
   border: none;
   color: #3b82f6;
@@ -76,9 +79,6 @@
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
   font-size: 14px;
   font-weight: 500;
 }
@@ -92,7 +92,24 @@
   transform: translateY(0);
 }
 
-.article-tags,
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
 .article-tag {
-  display: none;
-} 
+  display: inline-flex;
+  align-items: center;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Variantes de couleurs pour les tags */
+.article-tag:nth-child(3n+1) { background: #3b82f6; }  /* Bleu */
+.article-tag:nth-child(3n+2) { background: #10b981; }  /* Vert */
+.article-tag:nth-child(3n+3) { background: #8b5cf6; }  /* Violet */ 

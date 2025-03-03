@@ -1,8 +1,8 @@
 import { ApolloProvider } from '@apollo/client';
 import { client } from '../lib/apollo.js';
-import ArticleList from '../components/ArticleList';
-import CreateArticle from '../components/CreateArticle';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar/index.js';
+import ArticleList from '../components/ArticleList/index.js';
+import CreateArticle from '../components/CreateArticle/index.js';
 import './styles.css';
 
 const App = () => {

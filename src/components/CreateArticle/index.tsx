@@ -1,18 +1,35 @@
 import { useState, FormEvent } from 'react';
 import { useArticleStore } from '../../store/articleStore.js';
+import { Tag, Plus, X } from 'lucide-react';
 import './styles.css';
 
 const CreateArticle = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [tags, setTags] = useState<string[]>([]);
+  const [selectedTagsInput, setSelectedTagsInput] = useState('');
+
   const { createArticle, loading } = useArticleStore();
+
+  const handelAddTags = ()=>{
+    if (selectedTagsInput.trim() && !tags.includes(selectedTagsInput.trim())) {
+        setTags([...tags, selectedTagsInput.trim()]);
+        setSelectedTagsInput('');
+      }
+  };
+
+  const handleRemoveTag = (tagToRemove: string) => {
+    setTags(tags.filter(tag => tag !== tagToRemove));
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await createArticle(title, content);
+      await createArticle(title, content, tags);
       setTitle('');
       setContent('');
+      setTags([]);
+      setSelectedTagsInput('');
     } catch (err) {
       console.error('Erreur lors de la création:', err);
     }
@@ -42,6 +59,44 @@ const CreateArticle = () => {
             disabled={loading}
             className="form-textarea"
           />
+        </div>
+        <div className="tags-section">
+          <div className="tags-input-container">
+            <Tag size={16} />
+            <input
+              type="text"
+              value={selectedTagsInput}
+              onChange={(e) => setSelectedTagsInput(e.target.value)}
+              onKeyDown={handelAddTags}
+              placeholder="Ajouter des tags..."
+              className="tag-input"
+              disabled={loading}
+            />
+            <button
+              type="button"
+              onClick={handelAddTags}
+              className="add-tag-button"
+              disabled={!selectedTagsInput.trim() || loading}
+            >
+              <Plus size={16} />
+            </button>
+          </div>
+          {tags.length > 0 && (
+            <div className="tags-list">
+              {tags.map(tag => (
+                <span key={tag} className="tag">
+                  #{tag}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveTag(tag)}
+                    className="remove-tag-button"
+                  >
+                    <X size={12} />
+                  </button>
+                </span>
+              ))}
+            </div>
+          )}
         </div>
         <button 
           type="submit" 

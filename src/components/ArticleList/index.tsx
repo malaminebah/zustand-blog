@@ -35,6 +35,13 @@ const ArticleList = () => {
       {articles.map(article => (
         <article key={article.id} className="article-card">
           <h2 className="article-title">{article.title}</h2>
+          <div className="tags-container">
+            {article.tags.map(tag => (
+              <span key={tag} className="article-tag">
+                #{tag}
+              </span>
+            ))}
+          </div>
           <p className="article-content">
             {truncateContent(article.content, expandedArticles[article.id])}
           </p>

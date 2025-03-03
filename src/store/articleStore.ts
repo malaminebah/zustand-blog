@@ -7,6 +7,7 @@ interface Article {
   title: string;
   content: string;
   createdAt: string;
+  tags: string[];
 }
 
 interface ArticleStore {
@@ -14,7 +15,7 @@ interface ArticleStore {
   loading: boolean;
   error: string | null;
   fetchArticles: () => Promise<void>;
-  createArticle: (title: string, content: string) => Promise<void>;
+  createArticle: (title: string, content: string ,tags:string[]) => Promise<void>;
   deleteArticle: (id: string) => Promise<void>;
 }
 
@@ -25,17 +26,19 @@ const GET_ARTICLES = gql`
       title
       content
       createdAt
+      tags
     }
   }
 `;
 
 const CREATE_ARTICLE = gql`
-  mutation CreateArticle($title: String!, $content: String!) {
-    createArticle(title: $title, content: $content) {
+  mutation CreateArticle($title: String!, $content: String!, $tags: [String!]!) {
+    createArticle(title: $title, content: $content, tags: $tags) {
       id
       title
       content
       createdAt
+      tags
     }
   }
 `;
@@ -66,12 +69,12 @@ export const useArticleStore = create<ArticleStore>((set) => ({
     }
   },
 
-  createArticle: async (title: string, content: string) => {
+  createArticle: async (title: string, content: string, tags:string[]) => {
     set({ loading: true, error: null });
     try {
       const { data } = await client.mutate({
         mutation: CREATE_ARTICLE,
-        variables: { title, content },
+        variables: { title, content ,tags},
         refetchQueries: [{ query: GET_ARTICLES }],
       });
       set(state => ({
